@@ -11,6 +11,20 @@
     <p>Allowed Cookie</p>
     <button :disabled="cookieAllowed==`allowed`" @click='setCookie(true)'>Allow</button>
     <button :disabled="cookieAllowed==  `banned` " @click='setCookie(false)'>Ban</button>
+    <div v-for='(elem,elm_index) in menu' :key="elm_index">
+         <ul v-for="(val,prop,index) in elem" :key="index">
+            <h2>{{prop.toUpperCase()}}</h2>
+            <button v-if="!order[elm_index]" @click="show(elm_index)">Show</button>
+          <div v-else>
+            <li v-for="(val,prop,index) in val" :key="index">
+                <span>{{prop}}:</span>{{val}}
+            </li>
+            <button @click="hide(elm_index)">Hide</button>
+        </div>
+         </ul>
+    </div>
+    <button @click="all(true)" :disable='allShow' >Show All</button>
+    <button @click="all(false)" :disabled='allHide'>Hide All</button>
     </div>
     <script>
 
@@ -18,26 +32,85 @@
         data(){
             return{
                 cookieAllowed:'Unknown',
+                menu:[],
+                order:[],
+                default_item:0,
             }
+          
         },
+        computed:{
+           allShow(){
+            if(this.order.includes(false))return false;
+            return true;
+           },
+           allHide(){
+            if(this.order.includes(true))return false;
+            return true;
+           }
+        },
+
         created(){
-  let json=[]
+  let json=[
+  {uk:{nation:'UK',capital:'London',favourite:'Pound Sterling'}},
+  {city:{city:'NewsCastele Upon Type',street:'Percy Street'}},
+  {car:{brand:'Toyota',model:'Land Cruiser',engine:'Petrol'}}
+
+
+  ]
+
+this.menu=json
+  
 
 
             let cookie=this.processCookie();
             if(cookie.exists){
                 if(cookie.allowed=='allowed'){
                     this.cookieAllowed='allowed'
+                    if(cookie.order){
+                          this.init(cookie.order)
+                        this.init();
+                    }
                 }else{
                     this.cookieAllowed='banned'
+                    this.default_item=this.menu.length-1
+                    this.init()
                 }
             }else{
                 this.cookieAllowed='Unknown'
+                this.init()
             } 
         },
 
         methods:{
+        all(dir){
+             for(let i =0;i<this.order.length;i++){
+                this.order[i]=dir;
+             }
+        },
 
+            show(elm_index){
+              for(let i =0;i<this.order.length;i++){
+                this.order[i]=false;
+              }
+              this.order[elm_index]=true;
+            }
+            ,
+            hide(elm_index){
+                   this.order[elm_index]=false;
+            },
+        init(cookie_order){
+        if(cookie_order){
+             this.order=[]
+             cookie_order.split(',').map((elem)=>{
+                this.order.push(JSON.parse(elem))
+             })
+        }else{
+            for(let i =0;i<this.menu.length;i++){
+                this.order.push(false)
+             }
+             this.order[this.default_item]=true;
+        }
+        },
             setCookie(dir){
                 if(dir){
                     document.cookie='allowed=allowed'

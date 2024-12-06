@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue 3 Demo</title>
+    <!-- <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script> -->
+     <style>
+        .bgOne{
+            background-color: #3C8881; text-align: center; padding: 10px; margin:5px;
+        }
+        .bgTwo{
+            background-color: #34495E; text-align: center; padding: 10px; margin:5px;
+        }
+        .textOne{
+          color:wheat; font-size:24px; font-family: cursive;
+        }
+        .textTwo{
+            color:white;font-size:24px;font-family:Impact;
+        }
+     </style>
+
+
+</head>
+<body>
+    <div id="vue_app">
+        <div class="bgOne textOne">
+            <span>{{msg}}</span>
+        </div>
+
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <script>
+        let app=Vue.createApp({
+
+            data(){
+                return{
+                    msg:'Control CSs & style using vue3'
+                }
+
+            },
+
+            methods(){
+
+                return {
+
+                }
+            }
+        })
+    
+
+
+
+        let vm=app.mount('#vue_app');
+    </script>
+
+</body>
+</html>
