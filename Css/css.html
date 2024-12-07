@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vue 3 Demo</title>
-    <!-- <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script> -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
      <style>
         .bgOne{
             background-color: #3C8881; text-align: center; padding: 10px; margin:5px;
@@ -24,20 +24,25 @@
 </head>
 <body>
     <div id="vue_app">
-        <div class="bgOne textOne">
+        <div v-bind:class='{bgOne:bg,bgTwo:!bg,textOne:text,textTwo:!text}'>
             <span>{{msg}}</span>
+            
         </div>
+        <button @click='bg=!bg'>Change bG color</button>
+        <button @click='text=!text'>Change Text color</button>
 
     </div>
 
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script> -->
 
     <script>
         let app=Vue.createApp({
 
             data(){
                 return{
-                    msg:'Control CSs & style using vue3'
+                    msg:'Control CSs & style using vue3',
+                    bg:true,
+                    text:true,
                 }
 
             },
