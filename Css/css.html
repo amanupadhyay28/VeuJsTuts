@@ -6,31 +6,23 @@
     <title>Vue 3 Demo</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
      <style>
-        .bgOne{
-            background-color: #3C8881; text-align: center; padding: 10px; margin:5px;
+        button{font-size:32px}
+        .initialStyle{
+            width: 200px; height:200px;background:green;
+
         }
-        .bgTwo{
-            background-color: #34495E; text-align: center; padding: 10px; margin:5px;
+        .newStyle{
+            width: 100px; height:100px;background: red;
         }
-        .textOne{
-          color:wheat; font-size:24px; font-family: cursive;
-        }
-        .textTwo{
-            color:white;font-size:24px;font-family:Impact;
-        }
+        
      </style>
 
 
 </head>
 <body>
     <div id="vue_app">
-        <div v-bind:class='{bgOne:bg,bgTwo:!bg,textOne:text,textTwo:!text}'>
-            <span>{{msg}}</span>
-            
-        </div>
-        <button @click='bg=!bg'>Change bG color</button>
-        <button @click='text=!text'>Change Text color</button>
-
+     <button @click="display=!display">Display</button>
+     <div class="initialStyle" :class="{newStyle:display}"></div>
     </div>
 
     <!-- <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script> -->
@@ -40,19 +32,12 @@
 
             data(){
                 return{
-                    msg:'Control CSs & style using vue3',
-                    bg:true,
-                    text:true,
+                  display:false,
                 }
 
             },
 
-            methods(){
-
-                return {
-
-                }
-            }
+            
         })
     
 
